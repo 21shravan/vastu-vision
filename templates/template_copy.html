@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8" />
+
+<style>
+
+/* ---------- PAGE SETUP ---------- */
+@page {
+    size: A4;
+    margin: 10mm 10mm 30mm 10mm;
+
+    @bottom-center {
+        content: element(footer);
+    }
+}
+@font-face {
+    font-family: "HeadingFont";
+    src: url("fonts\Bauhaus 93 Regular.ttf");
+    font-weight: normal;
+    font-style: normal;
+}
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 10pt;
+    margin: 0;
+    padding: 0;
+}
+
+/* ---------- HEADER ---------- */
+.header-table {
+    width: 100%;
+    table-layout: fixed;
+    border-collapse: collapse;
+}
+
+.header-table td {
+    vertical-align: middle;
+}
+
+.company-name {
+    font-family: "HeadingFont";
+    font-size: 24pt;
+    font-weight: bold;
+    color: #FF6600;
+    text-align: center;
+    margin: 0;
+}
+
+.company-tagline {
+    font-size: 11pt;
+    color: black;
+    text-align: center;
+    margin: 2px 0 0 0;
+}
+
+/* ---------- SECTIONS ---------- */
+.section-title {
+    font-size: 14pt;
+    font-weight: bold;
+    color: #365F91;
+    margin-top: 18px;
+    margin-bottom: 6px;
+}
+
+/* ---------- TABLES ---------- */
+.data-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 6px;
+}
+
+.data-table th,
+.data-table td {
+    border: 1px solid #000;
+    padding: 4px;
+    text-align: center;
+    vertical-align: middle;
+    font-size: 10pt;
+}
+
+.data-table th {
+    font-weight: bold;
+}
+
+/* ---------- TOTAL ---------- */
+.total {
+    text-align: center;
+    font-size: 13pt;
+    color: #EE0000;
+    margin-top: 12px;
+}
+
+/* ---------- BANK DETAILS ---------- */
+.bank-table {
+    width: 60%;
+    margin-top: 30px;
+    border-collapse: collapse;
+}
+
+.bank-table td {
+    padding: 3px;
+    font-size: 10pt;
+}
+
+/* ---------- FOOTER ---------- */
+.footer {
+    position: running(footer);
+    text-align: center;
+    font-size: 9pt;
+    color: #000;
+    border-top: 1px solid #4F81BD;
+    padding-top: 6px;
+   
+}
+
+</style>
+</head>
+
+<body>
+<!-- ================= FOOTER (REPEATED) ================= -->
+<div class="footer" style="width: 100%;">
+    Alkai Enterprises, Shop no: 06, Harpale Wasti, Fursungi, Pune 412308<br/>
+    <b>8055180064 / 7557233233</b>
+</div>
+<!-- ================= HEADER ================= -->
+<table class="header-table">
+<tr>
+    <td  style="width: 25mm; text-align: left;">
+        <img src="{{ logo_path }}" style="width: 25mm; height: 25mm;" />
+    </td>
+    <td style="width: 160mm;">
+        <div class="company-name">VASTU VISION DESIGN CONSULTANTS</div>
+        <div class="company-tagline">ARCHITECTURE | INTERIOR | LANDSCAPE</div>
+    </td>
+</tr>
+</table>
+
+<hr/ style="border-top: 1px solid #4F81BD;">
+<div class="section-title" style="text-align: center;">Scope of Work and Design Consultation Fees</div>
+<table width="190mm">
+    <tr>
+        <td style="width: 133mm; text-align: left;">
+            <p><b>Project:</b> {{ projectName }}</p>
+            <p><b>Client Name:</b> {{ clientName }}</p>
+            <p><b>Site Address:</b> {{ siteAddress }}</p>
+        </td>
+
+        <td style="width: 57mm; text-align: right; vertical-align: top;">
+            <p><b>Date:</b> {{ date }}</p>
+        </td>
+    </tr>
+</table>
+
+
+
+<!-- ================= SITE VISITS ================= -->
+<div class="section-title">SITE VISITS</div>
+
+<table class="data-table">
+<tr>
+    <th width="15%">Visit No</th>
+    <th width="55%">Description</th>
+    <th width="30%">Date</th>
+</tr>
+
+{% for item in itemList1 %}
+<tr>
+    <td>{{ item[0] }}</td>
+    <td>{{ item[1] }}</td>
+    <td>{{ item[2] }}</td>
+</tr>
+{% endfor %}
+</table>
+
+<!-- ================= PAYMENT SCHEDULE ================= -->
+<div class="section-title">PAYMENT SCHEDULE</div>
+
+<table class="data-table">
+<tr>
+    <th width="55%">Description</th>
+    <th width="20%">Amount (₹)</th>
+    <th width="25%">Date</th>
+</tr>
+
+{% for item in itemList2 %}
+<tr>
+    <td>{{ item[0] }}</td>
+    <td>{{ item[1] }}</td>
+    <td>{{ item[2] }}</td>
+</tr>
+{% endfor %}
+</table>
+
+<div class="total">
+    Total: ₹ {{ total }}/-<br>
+    {{total_words}}
+</div>
+
+{% if notes and notes.strip() %}
+<div class="section-title">NOTES</div>
+
+<table width="90%" align="center">
+    <tr>
+        <td style=" padding:8px; font-size:10pt;">
+            {{ notes | replace('\n', '<br/>') | safe }}
+        </td>
+    </tr>
+</table>
+
+<table width="100%">
+    <tr><td style="height:10px;"></td></tr>
+</table>
+{% endif %}
+
+
+<!-- ================= BANK DETAILS ================= -->
+<table class="bank-table">
+<tr><td><b>Account Name</b></td><td>: VASTU DESIGN CONSULTANTS</td></tr>
+<tr><td><b>Account Number</b></td><td>: 28021001327</td></tr>
+<tr><td><b>Bank Name</b></td><td>: JANASEVA SAHAKARI BANK</td></tr>
+<tr><td><b>Branch</b></td><td>: FURSUNGI</td></tr>
+<tr><td><b>IFSC Code</b></td><td>: JANA0000028
+</td></tr>
+</table>
+
+
+
+</body>
+</html>
